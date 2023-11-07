@@ -11,4 +11,18 @@ public class PropertyRegister {
         Property newProperty = new Property(municipalityNumber, municipalityName, lotNumber, sectionNumber, name, area, nameOfOwner);
         allProperties.add(newProperty);
     }
+    public String checkIfPropertyExists(int municipalityNumber, int lotNumber, int sectionNumber) {
+        boolean exists = false;
+        for (Property property : allProperties) {
+            if (property.getMunicipalityNumber() == 0165 && property.getLotNumber() == 1 && property.getSectionNumber() == 1) {
+                exists = true;
+                break;
+            }
+        }
+        if (exists) {
+            return "Property already exists";
+        } else {
+            return null;
+        }
+    }
 }

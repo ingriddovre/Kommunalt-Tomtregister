@@ -38,6 +38,13 @@ public class Property {
         this.nameOfOwner = nameOfOwner;
     }
 
+    /**
+     * This method is used to get the property ID of the property.
+     * The property ID is set as: municipalityNumber-lotNumber/sectionNumber.
+     * The nameOfOwner attribute is used to identify which property we want to get the ID of.
+     * @param nameOfOwner the name of the owner of the property.
+     * @return the property ID.
+     */
     public String PropertyID(String nameOfOwner) {
         return municipalityNumber + "-" + lotNumber + "/" + sectionNumber;
     }
