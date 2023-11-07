@@ -17,7 +17,7 @@
  *                    that is also why I have made a mutator method for this attribute.
  *
  * @author Ingrid Midtmoen Døvre
- * @version 07.11.2023 - last date edited
+ * @version 07.11.2023 - 13.11.2023
  */
 public class Property {
     private final int municipalityNumber;
