@@ -23,23 +23,37 @@ public class PropertyRegister {
     public PropertyRegister() {
         allProperties = new ArrayList<Property>();
     }
-
+    public ArrayList<Property> getAllProperties() {
+        return allProperties;
+    }
     public void RegisterNewProperty(int municipalityNumber, String municipalityName, int lotNumber, int sectionNumber, String name, double area, String nameOfOwner) {
         Property newProperty = new Property(municipalityNumber, municipalityName, lotNumber, sectionNumber, name, area, nameOfOwner);
         allProperties.add(newProperty);
     }
-    public String checkIfPropertyExists(int municipalityNumber, int lotNumber, int sectionNumber) {
+    public String searchForProperty(int municipalityNumber, int lotNumber, int sectionNumber) {
+        String foundProperty = "";
+        for (Property property : allProperties) {
+            if (property.getMunicipalityNumber() == municipalityNumber &&
+                property.getLotNumber() == lotNumber &&
+                property.getSectionNumber() == sectionNumber) {
+                foundProperty = property.toString();
+            }break;
+        }
+        return foundProperty;
+    }
+
+    public int checkIfPropertyExists(int municipalityNumber, int lotNumber, int sectionNumber) {
         boolean exists = false;
         for (Property property : allProperties) {
-            if (property.getMunicipalityNumber() == 0165 && property.getLotNumber() == 1 && property.getSectionNumber() == 1) {
+            if (property.getMunicipalityNumber() == municipalityNumber && property.getLotNumber() == lotNumber && property.getSectionNumber() == sectionNumber) {
                 exists = true;
                 break;
             }
         }
         if (exists) {
-            return "Property already exists";
+            return 1;
         } else {
-            return null;
+            return 0;
         }
     }
 
@@ -54,7 +68,7 @@ public class PropertyRegister {
                 exists = true;
                 break;
             }
-            if (!exists) {
+            if (exists) {
                 System.out.println("This property does not exist");
             }
         }
@@ -71,5 +85,41 @@ public class PropertyRegister {
             mapOfProperties[i][6] = allProperties.get(i).getNameOfOwner();
         }
         return mapOfProperties;
+    }
+
+    public Double calculateAvgSizeOfArea() {
+        double totalArea = 0;
+        int howManyProperties = numberOfProperties();
+        for (Property property : allProperties) {
+            totalArea += property.getArea();
+        }
+        return totalArea / howManyProperties;
+    }
+    public int numberOfProperties() {
+        return allProperties.size();
+    }
+
+    public String [][] propertiesWithLotNumber(int lotNumber) { // søke etter eiendommer med samme gårdsnummer
+        int howManyProperties = 0;
+        for (Property property : allProperties) {
+            if (property.getLotNumber() == lotNumber) {
+                howManyProperties++;
+            }
+        }
+        String [][] propertiesWithLotNumber = new String[howManyProperties][7];
+        int i = 0;
+        for (Property property : allProperties) {
+            if (property.getLotNumber() == lotNumber) {
+                propertiesWithLotNumber[i][0] = String.valueOf(property.getMunicipalityNumber());
+                propertiesWithLotNumber[i][1] = property.getMunicipalityName();
+                propertiesWithLotNumber[i][2] = String.valueOf(property.getLotNumber());
+                propertiesWithLotNumber[i][3] = String.valueOf(property.getSectionNumber());
+                propertiesWithLotNumber[i][4] = property.getName();
+                propertiesWithLotNumber[i][5] = String.valueOf(property.getArea());
+                propertiesWithLotNumber[i][6] = property.getNameOfOwner();
+                i++;
+            }
+        }
+        return propertiesWithLotNumber;
     }
 }

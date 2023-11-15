@@ -2,20 +2,6 @@
  * This class is used to represent a property.
  * A common property in Norway has a municipality number, a municipality name, a lot number,
  * a section number, a name, an area, and a name of the owner.
- *
- * The constructor initializes a Property object with the following attributes:
- * @param municipalityNumber a unique Integer parameter for each municipality in Norway. This is a final attribute, because the property can not change its place.
- *                           The municipality number is in range from 101 (Halden) to 5054 (Indre Fosen).
- * @param municipalityName the name of the municipality. This is a final String parameter, because the name of the municipality most likely won't change.
- * @param lotNumber the lot number of the property. This is a final Integer attribute, because the lot number will not change.
- * @param sectionNumber the section number of the property. This is a final Integer attribute, because the section number will not change.
- * @param name the name of the property. Not all properties have a name, therefore this String is not set as final, and can be changed later.
- *             If the property is renamed for any reason, it can be changed with a mutator method. If the property does not have a name, the String will be empty.
- * @param area the area of the property. Property area is measured in square meters, and can be changed later, therefore it is not set as a final Double attribute.
- *             If the area of the property is measured incorrectly, or if the owners choose to buy more property, I use a mutator method to change it.
- * @param nameOfOwner The name of the owner of the property. Property owners can change, therefore this is not set as a final String, and
- *                    that is also why I have made a mutator method for this attribute.
- *
  * @author Ingrid Midtmoen Døvre
  * @version 07.11.2023 - 13.11.2023
  */
@@ -27,6 +13,21 @@ public class Property {
     private String name;
     private double area;
     private String nameOfOwner;
+
+    /**
+     * The constructor initializes a Property object with the following attributes:
+     * @param municipalityNumber a unique Integer parameter for each municipality in Norway. This is a final attribute, because the property can not change its place.
+     *                           The municipality number is in range from 101 (Halden) to 5054 (Indre Fosen).
+     * @param municipalityName the name of the municipality. This is a final String parameter, because the name of the municipality most likely won't change.
+     * @param lotNumber the lot number of the property. This is a final Integer attribute, because the lot number will not change.
+     * @param sectionNumber the section number of the property. This is a final Integer attribute, because the section number will not change.
+     * @param name the name of the property. Not all properties have a name, therefore this String is not set as final, and can be changed later.
+     *             If the property is renamed for any reason, it can be changed with a mutator method. If the property does not have a name, the String will be empty.
+     * @param area the area of the property. Property area is measured in square meters, and can be changed later, therefore it is not set as a final Double attribute.
+     *             If the area of the property is measured incorrectly, or if the owners choose to buy more property, I use a mutator method to change it.
+     * @param nameOfOwner The name of the owner of the property. Property owners can change, therefore this is not set as a final String, and
+     *                    that is also why I have made a mutator method for this attribute.
+     */
 
     public Property(int municipalityNumber, String municipalityName, int lotNumber, int sectionNumber, String name, double area, String nameOfOwner) {
         this.municipalityNumber = municipalityNumber;
@@ -134,5 +135,20 @@ public class Property {
      */
     public void setNameOfOwner(String nameOfOwner) {
         this.nameOfOwner = nameOfOwner;
+    }
+
+    /**
+     * This method creates a String representation of a specific property.
+     * @return a String representation of the property.
+     */
+    public String toString() {
+        return "Municipality number: " + municipalityNumber
+            + "\nMunicipality name: " + municipalityName
+            + "\nLot number: " + lotNumber
+            + "\nSection number: " + sectionNumber
+            + "\nName: " + name
+            + "\nArea: " + area
+            + "\nName of owner: " + nameOfOwner;
+
     }
 }
