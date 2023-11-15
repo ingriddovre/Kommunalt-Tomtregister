@@ -17,17 +17,18 @@
  */
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class PropertyRegister {
     ArrayList<Property> allProperties;
     public PropertyRegister() {
-        allProperties = new ArrayList<Property>();
+        allProperties = new ArrayList<>();
     }
     public ArrayList<Property> getAllProperties() {
         return allProperties;
     }
-    public void RegisterNewProperty(int municipalityNumber, String municipalityName, int lotNumber, int sectionNumber, String name, double area, String nameOfOwner) {
-        Property newProperty = new Property(municipalityNumber, municipalityName, lotNumber, sectionNumber, name, area, nameOfOwner);
+    public void RegisterNewProperty(int lotNumber, int sectionNumber, String name, double area, String nameOfOwner) {
+        Property newProperty = new Property(lotNumber, sectionNumber, name, area, nameOfOwner);
         allProperties.add(newProperty);
     }
     public String searchForProperty(int municipalityNumber, int lotNumber, int sectionNumber) {
@@ -38,6 +39,9 @@ public class PropertyRegister {
                 property.getSectionNumber() == sectionNumber) {
                 foundProperty = property.toString();
             }break;
+        }
+        if (foundProperty.isEmpty()) {
+            return null;
         }
         return foundProperty;
     }
@@ -57,34 +61,38 @@ public class PropertyRegister {
         }
     }
 
-    public void deleteProperty(String nameOfOwner, int lotNumber, int sectionNumber) {
+    public int deleteProperty(String nameOfOwner, int lotNumber, int sectionNumber) {
+        boolean exists = false;
         for (Property property : allProperties) {
             String propertyName = property.getNameOfOwner();
             int propertyLotNumber = property.getLotNumber();
             int propertySectionNumber = property.getSectionNumber();
-            boolean exists = false;
             if (propertyName.equals(nameOfOwner) && propertyLotNumber == lotNumber && propertySectionNumber == sectionNumber) {
                 allProperties.remove(property);
                 exists = true;
                 break;
             }
-            if (exists) {
-                System.out.println("This property does not exist");
-            }
+        }
+        if (exists) {
+            return 1;
+        } else {
+            return 0;
         }
     }
-    public String[][] showAllProperties() {
-        String[][] mapOfProperties = new String[allProperties.size()][7];
-        for (int i = 0 ; i < allProperties.size() ; i++) {
-            mapOfProperties[i][0] = String.valueOf(allProperties.get(i).getMunicipalityNumber());
-            mapOfProperties[i][1] = allProperties.get(i).getMunicipalityName();
-            mapOfProperties[i][2] = String.valueOf(allProperties.get(i).getLotNumber());
-            mapOfProperties[i][3] = String.valueOf(allProperties.get(i).getSectionNumber());
-            mapOfProperties[i][4] = allProperties.get(i).getName();
-            mapOfProperties[i][5] = String.valueOf(allProperties.get(i).getArea());
-            mapOfProperties[i][6] = allProperties.get(i).getNameOfOwner();
-        }
-        return mapOfProperties;
+
+    public String showAllProperties() { // TODO: denne er tydeligvis en uendelig løkke så dette må fikses på begge prosjekter
+    StringBuilder mapOfProperties = new StringBuilder();
+    mapOfProperties.append("----------------------------------------------------------------------------------------------------------------------------------------------\n");
+    mapOfProperties.append(String.format("| %-19s | %-17s | %-10s | %-14s | %-20s | %-10s | %-30s |\n",
+            "Municipality number", "Municipality name", "Lot number", "Section number", "Name", "Area", "Name of owner"));
+    mapOfProperties.append("----------------------------------------------------------------------------------------------------------------------------------------------\n");
+    for (Property property : allProperties) { //
+        mapOfProperties.append(String.format("| %-19s | %-17s | %-10s | %-14s | %-20s | %-10s | %-30s |\n",
+                property.getMunicipalityNumber(), property.getMunicipalityName(), property.getLotNumber(),
+                property.getSectionNumber(), property.getName(), property.getArea(), property.getNameOfOwner()));
+    }
+    mapOfProperties.append("----------------------------------------------------------------------------------------------------------------------------------------------");
+    return mapOfProperties.toString();
     }
 
     public Double calculateAvgSizeOfArea() {
@@ -99,27 +107,31 @@ public class PropertyRegister {
         return allProperties.size();
     }
 
-    public String [][] propertiesWithLotNumber(int lotNumber) { // søke etter eiendommer med samme gårdsnummer
+    public String [][] propertiesWithLotNumber(int lotNumber) {
         int howManyProperties = 0;
         for (Property property : allProperties) {
             if (property.getLotNumber() == lotNumber) {
                 howManyProperties++;
             }
         }
-        String [][] propertiesWithLotNumber = new String[howManyProperties][7];
-        int i = 0;
-        for (Property property : allProperties) {
-            if (property.getLotNumber() == lotNumber) {
-                propertiesWithLotNumber[i][0] = String.valueOf(property.getMunicipalityNumber());
-                propertiesWithLotNumber[i][1] = property.getMunicipalityName();
-                propertiesWithLotNumber[i][2] = String.valueOf(property.getLotNumber());
-                propertiesWithLotNumber[i][3] = String.valueOf(property.getSectionNumber());
-                propertiesWithLotNumber[i][4] = property.getName();
-                propertiesWithLotNumber[i][5] = String.valueOf(property.getArea());
-                propertiesWithLotNumber[i][6] = property.getNameOfOwner();
-                i++;
+        if (howManyProperties == 0) {
+            return null;
+        } else {
+            String [][] propertiesWithLotNumber = new String[howManyProperties][7];
+            int i = 0;
+            for (Property property : allProperties) {
+                if (property.getLotNumber() == lotNumber) {
+                    propertiesWithLotNumber[i][0] = String.valueOf(property.getMunicipalityNumber());
+                    propertiesWithLotNumber[i][1] = property.getMunicipalityName();
+                    propertiesWithLotNumber[i][2] = String.valueOf(property.getLotNumber());
+                    propertiesWithLotNumber[i][3] = String.valueOf(property.getSectionNumber());
+                    propertiesWithLotNumber[i][4] = property.getName();
+                    propertiesWithLotNumber[i][5] = String.valueOf(property.getArea());
+                    propertiesWithLotNumber[i][6] = property.getNameOfOwner();
+                    i++;
+                }
             }
+            return propertiesWithLotNumber;
         }
-        return propertiesWithLotNumber;
     }
 }

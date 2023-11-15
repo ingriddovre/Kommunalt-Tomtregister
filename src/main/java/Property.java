@@ -29,9 +29,9 @@ public class Property {
      *                    that is also why I have made a mutator method for this attribute.
      */
 
-    public Property(int municipalityNumber, String municipalityName, int lotNumber, int sectionNumber, String name, double area, String nameOfOwner) {
-        this.municipalityNumber = municipalityNumber;
-        this.municipalityName = municipalityName;
+    public Property(int lotNumber, int sectionNumber, String name, double area, String nameOfOwner) {
+        this.municipalityNumber = 1445;
+        this.municipalityName = "Gloppen";
         this.lotNumber = lotNumber;
         this.sectionNumber = sectionNumber;
         this.name = name;
@@ -43,10 +43,9 @@ public class Property {
      * This method is used to get the property ID of the property.
      * The property ID is set as: municipalityNumber-lotNumber/sectionNumber.
      * The nameOfOwner attribute is used to identify which property we want to get the ID of.
-     * @param nameOfOwner the name of the owner of the property.
      * @return the property ID.
      */
-    public String PropertyID(String nameOfOwner) {
+    public String PropertyID() {
         return municipalityNumber + "-" + lotNumber + "/" + sectionNumber;
     }
 
@@ -88,7 +87,7 @@ public class Property {
      * Or, the name can be set later with a mutator method.
      * @return the name of the property, or an empty string if the property does not have a name.
      */
-    public String getName() {
+    public String getName() { // TODO: name cannot be larger than 20 characters because of the list
         return name;
     }
 
