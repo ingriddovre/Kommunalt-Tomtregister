@@ -140,6 +140,7 @@ public class Property {
      * This method creates a String representation of a specific property.
      * @return a String representation of the property.
      */
+    @Override
     public String toString() {
         return "Municipality number: " + municipalityNumber
             + "\nMunicipality name: " + municipalityName

@@ -6,7 +6,6 @@
  * The PropertyRegister class has a method for adding new properties, delete a property from the register, return all properties registered,
  * search for a specific property using the municipality number, the lot number and the section number.
  * It also has a method for checking if a property already exists in the register, for cases where we want to add a new property.
- *
  * The PropertyRegister class uses the following attribute:
  * @param allProperties an ArrayList of all the properties registered. All properties will be added into this ArrayList when they are created.
  *                      The ArrayList is initialized in the constructor, and it is not fixed in size, therefore the register can
@@ -17,7 +16,6 @@
  */
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class PropertyRegister {
     ArrayList<Property> allProperties;
@@ -33,14 +31,16 @@ public class PropertyRegister {
     }
     public String searchForProperty(int municipalityNumber, int lotNumber, int sectionNumber) {
         String foundProperty = "";
+        int howManyProperties = 0;
         for (Property property : allProperties) {
             if (property.getMunicipalityNumber() == municipalityNumber &&
                 property.getLotNumber() == lotNumber &&
                 property.getSectionNumber() == sectionNumber) {
-                foundProperty = property.toString();
-            }break;
+                howManyProperties++;
+                foundProperty = property + "\n";
+            }
         }
-        if (foundProperty.isEmpty()) {
+        if (foundProperty.isEmpty() && howManyProperties == 0) {
             return null;
         }
         return foundProperty;
@@ -67,7 +67,7 @@ public class PropertyRegister {
             String propertyName = property.getNameOfOwner();
             int propertyLotNumber = property.getLotNumber();
             int propertySectionNumber = property.getSectionNumber();
-            if (propertyName.equals(nameOfOwner) && propertyLotNumber == lotNumber && propertySectionNumber == sectionNumber) {
+            if (propertyName.equalsIgnoreCase(nameOfOwner) && propertyLotNumber == lotNumber && propertySectionNumber == sectionNumber) {
                 allProperties.remove(property);
                 exists = true;
                 break;
@@ -80,7 +80,7 @@ public class PropertyRegister {
         }
     }
 
-    public String showAllProperties() { // TODO: denne er tydeligvis en uendelig løkke så dette må fikses på begge prosjekter
+    public String showAllProperties() {
     StringBuilder mapOfProperties = new StringBuilder();
     mapOfProperties.append("----------------------------------------------------------------------------------------------------------------------------------------------\n");
     mapOfProperties.append(String.format("| %-19s | %-17s | %-10s | %-14s | %-20s | %-10s | %-30s |\n",
@@ -103,35 +103,32 @@ public class PropertyRegister {
         }
         return totalArea / howManyProperties;
     }
+
     public int numberOfProperties() {
         return allProperties.size();
     }
 
-    public String [][] propertiesWithLotNumber(int lotNumber) {
+
+    public String propertiesWithLotNumber(int lotNumber) {
+        StringBuilder propertiesWithLotNumber = new StringBuilder();
         int howManyProperties = 0;
+        propertiesWithLotNumber.append("----------------------------------------------------------------------------------------------------------------------------------------------\n");
+        propertiesWithLotNumber.append(String.format("| %-19s | %-17s | %-10s | %-14s | %-20s | %-10s | %-30s |\n",
+            "Municipality number", "Municipality name", "Lot number", "Section number", "Name", "Area", "Name of owner"));
+        propertiesWithLotNumber.append("----------------------------------------------------------------------------------------------------------------------------------------------\n");
         for (Property property : allProperties) {
-            if (property.getLotNumber() == lotNumber) {
+            if (lotNumber == property.getLotNumber()) {
                 howManyProperties++;
+                propertiesWithLotNumber.append(String.format("| %-19s | %-17s | %-10s | %-14s | %-20s | %-10s | %-30s |\n",
+                    property.getMunicipalityNumber(), property.getMunicipalityName(), property.getLotNumber(),
+                    property.getSectionNumber(), property.getName(), property.getArea(), property.getNameOfOwner()));
             }
         }
+        propertiesWithLotNumber.append("----------------------------------------------------------------------------------------------------------------------------------------------\n");
         if (howManyProperties == 0) {
             return null;
         } else {
-            String [][] propertiesWithLotNumber = new String[howManyProperties][7];
-            int i = 0;
-            for (Property property : allProperties) {
-                if (property.getLotNumber() == lotNumber) {
-                    propertiesWithLotNumber[i][0] = String.valueOf(property.getMunicipalityNumber());
-                    propertiesWithLotNumber[i][1] = property.getMunicipalityName();
-                    propertiesWithLotNumber[i][2] = String.valueOf(property.getLotNumber());
-                    propertiesWithLotNumber[i][3] = String.valueOf(property.getSectionNumber());
-                    propertiesWithLotNumber[i][4] = property.getName();
-                    propertiesWithLotNumber[i][5] = String.valueOf(property.getArea());
-                    propertiesWithLotNumber[i][6] = property.getNameOfOwner();
-                    i++;
-                }
-            }
-            return propertiesWithLotNumber;
+            return propertiesWithLotNumber.toString();
         }
     }
 }
