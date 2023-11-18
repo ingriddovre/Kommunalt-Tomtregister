@@ -1,8 +1,22 @@
 import java.util.Scanner;
 
+/**
+ * This class is the user interface for the Property Register Application.
+ * It contains a menu with 9 options, and methods for each option.
+ * The methods are called in the switch statement in the start method.
+ * The start method is called in the main method in the Application class.
+ * The class uses the PropertyRegister class to add, delete, search for and list properties. It also
+ * uses the Scanner class to handle the user input.
+ *
+ * @author Ingrid Midtmoen Døvre
+ */
 public class UserInterface {
   Scanner scanner = new Scanner(System.in);
   PropertyRegister propReg = new PropertyRegister();
+
+  /**
+   * This method prints the menu with 9 options for the user, the 9th being to quit the application.
+   */
   public void menu() {
     System.out.println("""
         
@@ -19,6 +33,13 @@ public class UserInterface {
         """);
   }
 
+  /**
+   * This method starts the application. It contains a while loop that runs until the user chooses
+   * to quit the application. The user is asked to choose an option from the menu, and the switch
+   * statement calls the method for the chosen option. IT also has some instances of properties
+   * to make it easier to test the application. This method is called in the main method in
+   * the Application class.
+   */
   public void start() {
     Property prop1 = new Property(77, 631, "", 1017.6, "Jens Olsen");
     Property prop2 = new Property(77, 131, "Syningom", 661.3, "Nicolay Madsen");
@@ -82,6 +103,14 @@ public class UserInterface {
       }
     }
   }
+
+  /**
+   * This method is called in the start method when the user chooses option 1 in the menu.
+   * It is used to add a new property to the register. It asks the user to enter the lot number,
+   * section number, name, area and name of the owner of the property. It checks if the property
+   * already exists in the register, and if not, it adds the property to the register.
+   * @return a String with the properties in the register.
+   */
   private String uiNewProperty() {
     int lotNumber = 0;
     int sectionNumber = 0;
@@ -175,6 +204,13 @@ public class UserInterface {
     }
   }
 
+  /**
+   * This method is called in the start method when the user chooses option 3 in the menu.
+   * It asks the user to enter the municipality number, lot number and section number of the
+   * property they want to search for. It checks if the property exists in the register, and if
+   * it does, it prints the property. If not, it prints a message saying that the property does
+   * not exist.
+   */
   private void uiSearchForProperty() {
     int municipalityNumber = 0;
     int lotNumber = 0;
@@ -228,6 +264,13 @@ public class UserInterface {
     }
   }
 
+  /**
+   * This method is called in the start method when the user chooses option 5 in the menu. It asks
+   * the user to enter the name of the owner, lot number and section number of the property they
+   * want to delete. It checks if the property exists in the register, and if it does, it deletes
+   * the property from the register. If not, it prints a message saying that the property does not
+   * exist.
+   */
   private void uiDeleteProperty() {
     String nameOfOwner = "";
     int lotNumber = 0;
@@ -285,6 +328,12 @@ public class UserInterface {
     }
   }
 
+  /**
+   * This method is called in the start method when the user chooses option 6 in the menu. It asks
+   * the user to enter the lot number of the property they want to search for. It checks if the
+   * property exists in the register, and if it does, it prints the property. If not, it prints a
+   * message saying that the property does not exist.
+   */
   private void uiPropertiesWithLotNumber() {
     int lotNumber = 0;
     boolean correctLotNumber = false;
@@ -308,6 +357,14 @@ public class UserInterface {
     }
   }
 
+  /**
+   * This method is called in the start method when the user chooses option 8 in the menu. It asks
+   * the user to enter the name of the owner of the properties they want to search for. It checks
+   * if the owner exists in the register, and if it does, it prints the property ID of the
+   * properties owned by the owner. If not, it prints a message saying that the owner does not
+   * exist in the register.
+   * @return a String with the property ID of the properties owned by the owner.
+   */
   private String uiPropertyID() {
     String nameOfOwner = "";
     boolean correctNameOfOwner = false;

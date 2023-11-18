@@ -8,6 +8,7 @@ class PropertyTest {
   Property prop4 = new Property( 74, 188, "", 1457.2, "Karl Ove Bråten");
   Property prop5 = new Property( 69, 47, "Høiberg", 1339.4, "Elsa Indregård");
 
+
   @org.junit.jupiter.api.Test
   void propertyID() {
   }

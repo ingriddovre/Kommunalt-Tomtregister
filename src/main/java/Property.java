@@ -87,7 +87,7 @@ public class Property {
      * Or, the name can be set later with a mutator method.
      * @return the name of the property, or an empty string if the property does not have a name.
      */
-    public String getName() { // TODO: name cannot be larger than 20 characters because of the list
+    public String getName() {
         return name;
     }
 
