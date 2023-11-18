@@ -110,6 +110,13 @@ public class UserInterface {
    * section number, name, area and name of the owner of the property. It checks if the property
    * already exists in the register, and if not, it adds the property to the register.
    * @return a String with the properties in the register.
+   * @throws IllegalArgumentException if the lot number or section number is less than 1.
+   * @throws NullPointerException if the name of the owner is empty.
+   * @throws IllegalArgumentException if the name of the property is longer than 20 characters.
+   * @throws IllegalArgumentException if the area is less than 1.
+   * @throws IllegalArgumentException if the municipality number is < 101, or > 5054.
+   * @throws IllegalArgumentException if the property already exists in the register.
+   * @throws NullPointerException if the name of the owner is empty.
    */
   private String uiNewProperty() {
     int lotNumber = 0;
@@ -210,6 +217,8 @@ public class UserInterface {
    * property they want to search for. It checks if the property exists in the register, and if
    * it does, it prints the property. If not, it prints a message saying that the property does
    * not exist.
+   * @throws IllegalArgumentException if the municipality number is < 101, or > 5054.
+   * @throws IllegalArgumentException if the lot number or section number is less than 1.
    */
   private void uiSearchForProperty() {
     int municipalityNumber = 0;
@@ -270,6 +279,8 @@ public class UserInterface {
    * want to delete. It checks if the property exists in the register, and if it does, it deletes
    * the property from the register. If not, it prints a message saying that the property does not
    * exist.
+   * @throws NullPointerException if the name of the owner is empty.
+   * @throws IllegalArgumentException if the lot number or section number is less than 1.
    */
   private void uiDeleteProperty() {
     String nameOfOwner = "";
@@ -333,6 +344,7 @@ public class UserInterface {
    * the user to enter the lot number of the property they want to search for. It checks if the
    * property exists in the register, and if it does, it prints the property. If not, it prints a
    * message saying that the property does not exist.
+   * @throws IllegalArgumentException if the lot number is less than 1.
    */
   private void uiPropertiesWithLotNumber() {
     int lotNumber = 0;
@@ -364,6 +376,7 @@ public class UserInterface {
    * properties owned by the owner. If not, it prints a message saying that the owner does not
    * exist in the register.
    * @return a String with the property ID of the properties owned by the owner.
+   * @throws NullPointerException if the name of the owner is empty.
    */
   private String uiPropertyID() {
     String nameOfOwner = "";
