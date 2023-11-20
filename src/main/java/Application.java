@@ -15,5 +15,3 @@ public class Application {
         ui.start();
     }
 }
-
-// todo: error in 2 attributes PropertyRegister class

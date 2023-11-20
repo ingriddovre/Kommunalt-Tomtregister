@@ -23,7 +23,6 @@ public class PropertyRegister {
      * most relevant so the register can hold as many properties as needed. The municipality does
      * not have a fixed amount of properties. All properties will be added to this ArrayList
      * when they are created.
-     * @param allProperties an ArrayList of all properties registered in the register.
      */
     public PropertyRegister() {
         allProperties = new ArrayList<>();

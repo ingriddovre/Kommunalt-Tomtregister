@@ -41,16 +41,11 @@ public class UserInterface {
    * the Application class.
    */
   public void start() {
-    Property prop1 = new Property(77, 631, "", 1017.6, "Jens Olsen");
-    Property prop2 = new Property(77, 131, "Syningom", 661.3, "Nicolay Madsen");
-    Property prop3 = new Property(75, 19, "Fugletun", 650.6, "Evilyn Jensen");
-    Property prop4 = new Property(74, 188, "", 1457.2, "Karl Ove Bråten");
-    Property prop5 = new Property(69, 47, "Høiberg", 1339.4, "Elsa Indregård");
-    propReg.allProperties.add(prop1);
-    propReg.allProperties.add(prop2);
-    propReg.allProperties.add(prop3);
-    propReg.allProperties.add(prop4);
-    propReg.allProperties.add(prop5);
+    propReg.allProperties.add(new Property(77, 631, "", 1017.6, "Jens Olsen"));
+    propReg.allProperties.add(new Property(77, 131, "Syningom", 661.3, "Nicolay Madsen"));
+    propReg.allProperties.add(new Property(75, 19, "Fugletun", 650.6, "Evilyn Jensen"));
+    propReg.allProperties.add(new Property(74, 188, "", 1457.2, "Karl Ove Bråten"));
+    propReg.allProperties.add(new Property(69, 47, "Høiberg", 1339.4, "Elsa Indregård"));
 
     System.out.println("Welcome to the Property Register Application");
     boolean exit = false;
@@ -161,11 +156,12 @@ public class UserInterface {
         try {
           System.out.println(
               "Please enter the name of the property.\n"
-                  + "If the property does not have a name, write 0:");
+                  + "If the property does not have a name, write: No name");
           scanner.nextLine();
           name = scanner.nextLine();
-          if (name.equals("0")) {
+          if (name.equalsIgnoreCase("No name")) {
             name = "";
+            correctName = true;
           } else if (name.length() > 20 || name.isEmpty()) {
             throw new IllegalArgumentException("Incorrect name:" + name);
           } else {

@@ -16,9 +16,6 @@ public class Property {
 
     /**
      * The constructor initializes a Property object with the following attributes:
-     * @param municipalityNumber a unique Integer parameter for each municipality in Norway. This is a final attribute, because the property can not change its place.
-     *                           The municipality number is in range from 101 (Halden) to 5054 (Indre Fosen).
-     * @param municipalityName the name of the municipality. This is a final String parameter, because the name of the municipality most likely won't change.
      * @param lotNumber the lot number of the property. This is a final Integer attribute, because the lot number will not change.
      * @param sectionNumber the section number of the property. This is a final Integer attribute, because the section number will not change.
      * @param name the name of the property. Not all properties have a name, therefore this String is not set as final, and can be changed later.
